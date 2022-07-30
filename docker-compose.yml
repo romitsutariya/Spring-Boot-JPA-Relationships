@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  studnet:
+    build: ./
+    ports:
+      - "8080:8080"
+    networks:
+      - back-tier
+    depends_on:
+      - pg
+      - eureka
+    environment:
+     - EUREKA_HOST=eureka
+     - HOST=pg
+     - USER=postgres
+     - PASSWORD=postgres
+     - DB=studnets
+  pg:
+    image: postgres
+    networks:
+      - back-tier
+    ports:
+      - 5432:5432
+    environment:
+     - POSTGRES_PASSWORD=postgres
+     - POSTGRES_DB=studnets
+     - POSTGRES_USER=postgres
+  eureka:
+    image: romitsutariya/euraka_server:2.0
+    ports:
+      - 8761:8761
+    networks:
+      - back-tier    
+
+volumes:
+  db-data:
+
+networks:
+  back-tier:
