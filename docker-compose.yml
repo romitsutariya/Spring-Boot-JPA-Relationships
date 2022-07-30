@@ -16,6 +16,16 @@ services:
      - USER=postgres
      - PASSWORD=postgres
      - DB=studnets
+  url:
+    image: romitsutariya/spring_boot_url:1.0 
+    ports:
+      - "9090:9090"
+    networks:
+      - back-tier
+    depends_on:
+      - eureka
+    environment:
+     - MONGO_HOST=${mongo_host}
   pg:
     image: postgres
     networks:
