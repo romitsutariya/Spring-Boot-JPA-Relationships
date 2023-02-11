@@ -24,3 +24,6 @@ hs_err_pid*
 /.classpath
 /.project
 /target/
+/.apt_generated/
+.settings/org.eclipse.m2e.core.prefs
+*.prefs

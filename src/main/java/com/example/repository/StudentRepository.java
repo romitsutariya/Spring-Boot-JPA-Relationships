@@ -24,17 +24,17 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 	List<Student> findByFirstNameIn (List<String> firstNames);
 	
 	@Query("From Student where firstName = :firstname and lastName = :lastName")
-	Student getByLastNameAndFirstName (String lastName, @Param("firstname") String firstName);
+	Student getByLastNameAndFirstName (@Param("lastName") String lastName, @Param("firstname") String firstName);
 	
 	@Modifying
 	@Transactional
 	@Query("Update Student set firstName = :firstName where id = :id")
-	Integer updateFirstName (Long id, String firstName);
+	Integer updateFirstName (@Param("id") Long id, @Param("firstName") String firstName);
 	
 	@Modifying
 	@Transactional
 	@Query("Delete From Student where firstName = :firstName")
-	Integer deleteByFirstName (String firstName);
+	Integer deleteByFirstName (@Param("firstName") String firstName);
 	
 	List<Student> findByAddress (Address address);
 }
