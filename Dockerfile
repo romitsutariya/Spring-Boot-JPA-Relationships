@@ -1,17 +1,10 @@
-FROM openjdk:8-jdk-alpine as build
+FROM maven as build
 
 WORKDIR /app
-
-COPY mvnw .
-
 COPY pom.xml .
-RUN chmod +x ./mvnw
-RUN ./mvnw dependency:go-offline -B
-
+RUN mvn dependency:go-offline -B
 COPY src src
-
-
-RUN ./mvnw package -DskipTests
+RUN mvn package -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 FROM openjdk:8-jre-alpine
